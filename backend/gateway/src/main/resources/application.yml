@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+    gateway:
+      routes:
+        # 用户服务路由
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/auth/**,/api/user/**
+        # 预约服务路由
+        - id: booking-service
+          uri: lb://booking-service
+          predicates:
+            - Path=/api/booking/**
+        # 场馆服务路由
+        - id: venue-service
+          uri: lb://venue-service
+          predicates:
+            - Path=/api/venue/**
+        # 资讯服务路由
+        - id: info-service
+          uri: lb://info-service
+          predicates:
+            - Path=/api/info/**
+        # 统计服务路由
+        - id: stat-service
+          uri: lb://stat-service
+          predicates:
+            - Path=/api/stat/**
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: info
+    "[org.springframework.cloud.gateway]": debug
