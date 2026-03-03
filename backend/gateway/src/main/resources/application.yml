@@ -2,14 +2,14 @@ spring:
   application:
     name: gateway
   config:
-    import: optional:configserver：
-    # 空配置服务器导入
+    import: nacos:localhost:8848
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
       config:
-        enabled: false
+        server-addr: localhost:8848
+        file-extension: yml
     gateway:
       routes:
         # 用户服务路由
