@@ -1,6 +1,8 @@
 spring:
   application:
     name: booking-service
+  config:
+    import: nacos:localhost:8848
   cloud:
     nacos:
       discovery:
