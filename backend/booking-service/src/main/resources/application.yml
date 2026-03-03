@@ -1,15 +1,6 @@
 spring:
   application:
     name: booking-service
-  config:
-    import: nacos:localhost:8848
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-      config:
-        server-addr: localhost:8848
-        file-extension: yml
   datasource:
     url: jdbc:mysql://localhost:3306/kp3?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
