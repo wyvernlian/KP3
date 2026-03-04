@@ -4,36 +4,34 @@ spring:
   cloud:
     gateway:
       routes:
-        # 用户服务路由
         - id: user-service
-          uri: http://localhost:8081
+          uri: lb://user-service
           predicates:
             - Path=/api/auth/**,/api/user/**
-        # 预约服务路由
         - id: booking-service
-          uri: http://localhost:8082
+          uri: lb://booking-service
           predicates:
             - Path=/api/booking/**
-        # 场馆服务路由
         - id: venue-service
-          uri: http://localhost:8083
+          uri: lb://venue-service
           predicates:
             - Path=/api/venue/**
-        # 资讯服务路由
         - id: info-service
-          uri: http://localhost:8084
+          uri: lb://info-service
           predicates:
             - Path=/api/info/**
-        # 统计服务路由
         - id: stat-service
-          uri: http://localhost:8085
+          uri: lb://stat-service
           predicates:
             - Path=/api/stat/**
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
 
 server:
   port: 8080
-
-logging:
-  level:
-    root: info
-    "[org.springframework.cloud.gateway]": debug
