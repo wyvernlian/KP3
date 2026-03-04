@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kp3?useSSL=false&serverTimezone=UTC
     username: root
-    password: 123456
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -22,7 +22,10 @@ spring:
       config:
         server-addr: localhost:8848
         namespace: public
-        file-extension: yaml
-
+        group: DEFAULT_GROUP  # 配置分组（默认DEFAULT_GROUP）
+        name: booking-service  # 配置文件名（默认与应用名相同）
+        file-extension: yml  # 配置文件格式（yml 或 properties）
+  config:
+    import: nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}  # 核心配置，指定导入Nacos的配置源
 server:
   port: 8082
