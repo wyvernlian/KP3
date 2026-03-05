@@ -32,4 +32,4 @@ server:
 
 jwt:
   secret: kp3_secret_key
-  expire: 86400
+  expiration: 86400000

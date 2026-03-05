@@ -1,9 +1,10 @@
 package com.kp3.utils;
 
+import com.kp3.config.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,15 +14,16 @@ import java.util.Map;
 @Component
 public class JwtUtils {
     
-    @Value("${jwt.secret}")
-    private String secret;
+    private final JwtConfig jwtConfig;
     
-    @Value("${jwt.expiration}")
-    private long expiration;
+    @Autowired
+    public JwtUtils(JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
+    }
     
     public String generateToken(Long userId, String username) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expiration * 1000);
+        Date expiryDate = new Date(now.getTime() + jwtConfig.getExpiration());
         
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
@@ -31,13 +33,13 @@ public class JwtUtils {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret())
                 .compact();
     }
     
     public Claims parseToken(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(jwtConfig.getSecret())
                 .parseClaimsJws(token)
                 .getBody();
     }

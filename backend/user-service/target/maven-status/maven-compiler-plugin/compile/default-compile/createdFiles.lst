@@ -1,5 +1,6 @@
 com\kp3\UserServiceApplication.class
 com\kp3\controller\AuthController.class
+com\kp3\config\JwtConfig.class
 com\kp3\config\SecurityConfig.class
 com\kp3\entity\SysMenu.class
 com\kp3\entity\SysRole.class
