@@ -29,7 +29,7 @@ spring:
     import: nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}  # 核心配置，指定导入Nacos的配置源
 server:
   port: 8081
-
+  
 jwt:
   secret: kp3_secret_key
   expiration: 86400000
